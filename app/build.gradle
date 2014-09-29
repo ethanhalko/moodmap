@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.example.halkomills.moodmap"
+        applicationId "com.halkomills.moodmap"
         minSdkVersion 18
         targetSdkVersion 20
         versionCode 1
