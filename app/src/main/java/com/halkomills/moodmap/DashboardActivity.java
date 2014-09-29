@@ -1,14 +1,17 @@
-package com.example.halkomills.moodmap;
+package com.halkomills.moodmap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.halkomills.moodmap.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +39,22 @@ public class DashboardActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,sMoods);
         moodListView.setAdapter(adapter);
 
+        Button statsButton = (Button)findViewById(R.id.statisticsButton);
+        statsButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                 Intent intent = new Intent(getApplicationContext(),StatisticsActivity.class);
+                 startActivity(intent);
+                 finish();
+                 return true;
+            }
+        });
+
     }
 
     private void insertABunchOfDumbMoods() {
 
         String[] moods = { "Mad","Sad","Glad" };
-
         for(String s: moods) {
             Mood mood = new Mood(s);
             db.createMood(mood);
@@ -70,5 +83,9 @@ public class DashboardActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onStatisticsClick() {
+
     }
 }

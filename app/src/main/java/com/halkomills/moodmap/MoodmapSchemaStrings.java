@@ -1,4 +1,4 @@
-package com.example.halkomills.moodmap;
+package com.halkomills.moodmap;
 
 /**
  * Created by mills on 2014-09-24.

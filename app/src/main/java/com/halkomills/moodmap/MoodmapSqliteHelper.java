@@ -1,4 +1,4 @@
-package com.example.halkomills.moodmap;
+package com.halkomills.moodmap;
 
 import android.content.ContentValues;
 import android.content.Context;

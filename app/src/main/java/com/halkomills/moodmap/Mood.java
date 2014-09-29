@@ -1,4 +1,4 @@
-package com.example.halkomills.moodmap;
+package com.halkomills.moodmap;
 import java.security.Timestamp;
 import java.util.Date;
 

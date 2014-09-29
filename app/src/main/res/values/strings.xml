@@ -4,5 +4,7 @@
     <string name="app_name">MoodMap</string>
     <string name="hello_world">MoodMap</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_statistics">Your Statistics</string>
+    <string name="return_dashboard">Dashboard</string>
 
 </resources>

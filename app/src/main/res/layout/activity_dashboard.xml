@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Yes"
-        android:id="@+id/button"
+        android:id="@+id/confirmButton"
         android:layout_below="@+id/currentMoodText"
         android:layout_alignStart="@+id/currentMoodText" />
 
@@ -45,15 +45,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No"
-        android:id="@+id/button2"
-        android:layout_toEndOf="@+id/button"
+        android:id="@+id/declineButton"
+        android:layout_toEndOf="@+id/confirmButton"
         android:layout_below="@+id/currentMoodText"
         android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/confirmButton"
         android:layout_marginTop="29dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
@@ -62,8 +62,8 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button3"
+            android:text="Moods"
+            android:id="@+id/openMoodsButton"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />
 
@@ -71,19 +71,19 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button4"
-            android:layout_alignTop="@+id/button3"
-            android:layout_toEndOf="@+id/button3" />
+            android:text="Custom"
+            android:id="@+id/customMoodButton"
+            android:layout_alignTop="@+id/openMoodsButton"
+            android:layout_toEndOf="@+id/openMoodsButton" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button5"
-            android:layout_alignTop="@+id/button4"
-            android:layout_toEndOf="@+id/button4" />
+            android:text="Statistics"
+            android:id="@+id/statisticsButton"
+            android:layout_alignTop="@+id/customMoodButton"
+            android:layout_toEndOf="@+id/customMoodButton" />
     </RelativeLayout>
 
 </RelativeLayout>
