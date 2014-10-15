@@ -20,6 +20,10 @@
             android:name="com.halkomills.moodmap.StatisticsActivity"
             android:label="@string/title_activity_statistics" >
         </activity>
+        <activity
+            android:name="com.halkomills.moodmap.SelectMoodActivity"
+            android:label="@string/title_activity_select_mood" >
+        </activity>
     </application>
 
 </manifest>

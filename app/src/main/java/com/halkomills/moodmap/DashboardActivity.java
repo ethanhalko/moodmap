@@ -20,30 +20,35 @@ import java.util.List;
 public class DashboardActivity extends Activity {
 
     MoodmapSqliteHelper db;
-    ListView moodListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        //deleteDatabase("Moodmap");
+
         db = new MoodmapSqliteHelper(this);
-
         db.deleteAll();
-        insertABunchOfDumbMoods();
-        List<Mood> moods = db.getAll();
-        List<String> sMoods = new ArrayList<String>();
-        for(Mood m : moods) { sMoods.add(m.getMood()); }
 
-        moodListView = (ListView)findViewById(R.id.previousMoodsList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,sMoods);
-        moodListView.setAdapter(adapter);
+        insertABunchOfDumbMoods();
 
         Button statsButton = (Button)findViewById(R.id.statisticsButton);
         statsButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                  Intent intent = new Intent(getApplicationContext(),StatisticsActivity.class);
+                 startActivity(intent);
+                 finish();
+                 return true;
+            }
+        });
+
+        Button moodButton = (Button)findViewById(R.id.openMoodsButton);
+        moodButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                 Intent intent = new Intent(getApplicationContext(),SelectMoodActivity.class);
                  startActivity(intent);
                  finish();
                  return true;
@@ -60,11 +65,6 @@ public class DashboardActivity extends Activity {
             db.createMood(mood);
         }
     }
-
-    public String generateMoodString(Mood m) {
-        return "You are " + m.getMood() + " at " + m.getTimestamp();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,9 +83,5 @@ public class DashboardActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onStatisticsClick() {
-
     }
 }

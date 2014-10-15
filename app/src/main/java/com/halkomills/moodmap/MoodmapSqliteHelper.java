@@ -5,13 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -45,17 +41,17 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-
     public long createMood(Mood mood) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("mood", mood.getMood());
+        values.put("name", mood.getName());
 
-        Date utilDate = new Date();
+        /*Date utilDate = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(utilDate);
         cal.set(Calendar.MILLISECOND, 0);
-        values.put("created_at",utilDate.getTime());
+        values.put("created_at",utilDate.getTime());*/
 
         long r = db.insert("moods", null, values);
         db.close();
@@ -80,36 +76,34 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
     }
 
     public List<Mood> getAll() {
-
+        Cursor cursor;
         List<Mood> moods = new ArrayList<Mood>();
         SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            //String query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC;";
+            cursor = db.rawQuery("SELECT * FROM moods", null);
 
-        Cursor cursor = db.rawQuery("SELECT * FROM moods", null);
+            if (cursor.moveToFirst()) {
+                while(!cursor.isAfterLast()) {
 
-        if (cursor.moveToFirst()) {
-            while(!cursor.isAfterLast()) {
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    String m = cursor.getString(cursor.getColumnIndex("name"));
 
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                String m = cursor.getString(cursor.getColumnIndex("mood"));
-                String created_at = cursor.getString(cursor.getColumnIndex("created_at"));
-
-                Mood mood = new Mood();
-                mood.setId(id);
-                mood.setMood(m);
+                    Mood mood = new Mood();
+                    mood.setId(id);
+                    mood.setMood(m);
 
 
-                DateFormat format = new SimpleDateFormat("MMddyyHHmmss");
-                try {
-                    Date ts = format.parse(created_at);
-                    mood.setTimestamp(ts);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    cursor.moveToNext();
+                    moods.add(mood);
                 }
-
-                cursor.moveToNext();
-                moods.add(mood);
             }
+        } catch (Exception e) {
+
+            Log.d("error",e.getMessage());
         }
+
+
 
         return moods;
     }
