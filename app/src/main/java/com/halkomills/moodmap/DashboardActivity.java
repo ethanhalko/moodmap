@@ -7,14 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.example.halkomills.moodmap.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
+import com.halkomills.moodmap.Models.MoodDTO;
+import com.halkomills.moodmap.SelectMood.SelectMoodActivity;
 
 
 public class DashboardActivity extends Activity {
@@ -61,8 +59,8 @@ public class DashboardActivity extends Activity {
 
         String[] moods = { "Mad","Sad","Glad" };
         for(String s: moods) {
-            Mood mood = new Mood(s);
-            db.createMood(mood);
+            MoodDTO moodDTO = new MoodDTO(s);
+            db.createMood(moodDTO);
         }
     }
 

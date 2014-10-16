@@ -1,26 +1,25 @@
-package com.halkomills.moodmap;
+package com.halkomills.moodmap.SelectMood;
 import com.example.halkomills.moodmap.R;
+import com.halkomills.moodmap.DashboardActivity;
+import com.halkomills.moodmap.Models.MoodDTO;
+import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
+
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 public class SelectMoodActivity extends Activity {
 
     MoodmapSqliteHelper db;
-    List<Mood> moods;
+    List<MoodDTO> moodDTOs;
     ListView moodListView;
 
     SelectMoodActivity wut;
@@ -34,15 +33,14 @@ public class SelectMoodActivity extends Activity {
         db = new MoodmapSqliteHelper(this);
         //db.deleteAll();
 
-        moods = db.getAll();
+        moodDTOs = db.getAll();
         List<String> sMoods = new ArrayList<String>();
-        for(Mood m : moods) { sMoods.add(m.getName()); }
+        for(MoodDTO m : moodDTOs) { sMoods.add(m.getName()); }
 
         moodListView = (ListView)findViewById(R.id.moodListView);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,sMoods);
         moodListView.setAdapter(adapter);
-
-        moodListView.setOnItemClickListener(new SelectMoodListViewItemClickListener(this,moods));
+        moodListView.setOnItemClickListener(new SelectMoodListViewItemClickListener(this, moodDTOs));
     }
 
 

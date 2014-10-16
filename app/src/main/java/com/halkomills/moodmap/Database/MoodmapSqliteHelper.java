@@ -1,4 +1,4 @@
-package com.halkomills.moodmap;
+package com.halkomills.moodmap.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.halkomills.moodmap.Models.MoodDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +43,11 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public long createMood(Mood mood) {
+    public long createMood(MoodDTO moodDTO) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("name", mood.getName());
+        values.put("name", moodDTO.getName());
 
         /*Date utilDate = new Date();
         Calendar cal = Calendar.getInstance();
@@ -59,7 +61,7 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         return r;
     }
 
-    public int updateMood(Mood mood) {
+    public int updateMood(MoodDTO moodDTO) {
         return -1;
     }
 
@@ -68,16 +70,16 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         return -1;
     }
 
-    public Mood getMood(int id) {
+    public MoodDTO getMood(int id) {
 
-        Mood mood = new Mood("lol");
+        MoodDTO moodDTO = new MoodDTO("lol");
 
-        return mood;
+        return moodDTO;
     }
 
-    public List<Mood> getAll() {
+    public List<MoodDTO> getAll() {
         Cursor cursor;
-        List<Mood> moods = new ArrayList<Mood>();
+        List<MoodDTO> moodDTOs = new ArrayList<MoodDTO>();
         SQLiteDatabase db = this.getWritableDatabase();
         try {
             //String query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC;";
@@ -89,13 +91,13 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
                     int id = cursor.getInt(cursor.getColumnIndex("id"));
                     String m = cursor.getString(cursor.getColumnIndex("name"));
 
-                    Mood mood = new Mood();
-                    mood.setId(id);
-                    mood.setMood(m);
+                    MoodDTO moodDTO = new MoodDTO();
+                    moodDTO.setId(id);
+                    moodDTO.setMood(m);
 
 
                     cursor.moveToNext();
-                    moods.add(mood);
+                    moodDTOs.add(moodDTO);
                 }
             }
         } catch (Exception e) {
@@ -103,9 +105,7 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
             Log.d("error",e.getMessage());
         }
 
-
-
-        return moods;
+        return moodDTOs;
     }
 
     public boolean deleteAll() {

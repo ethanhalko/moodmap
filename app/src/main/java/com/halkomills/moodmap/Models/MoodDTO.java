@@ -1,22 +1,22 @@
-package com.halkomills.moodmap;
+package com.halkomills.moodmap.Models;
 import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Mood {
+public class MoodDTO {
 
     private int id;
     private String mood;
     private boolean isDefault;
 
-    public Mood() {}
-    public Mood(String mood) {
+    public MoodDTO() {}
+    public MoodDTO(String mood) {
         this.mood = mood;
         this.isDefault = false;
     }
 
-    public Mood(int id, String mood, boolean isDefault) {
+    public MoodDTO(int id, String mood, boolean isDefault) {
         this.id = id;
         this.mood = mood;
         this.isDefault = isDefault;

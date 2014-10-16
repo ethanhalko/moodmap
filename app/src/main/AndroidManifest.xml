@@ -21,8 +21,12 @@
             android:label="@string/title_activity_statistics" >
         </activity>
         <activity
-            android:name="com.halkomills.moodmap.SelectMoodActivity"
+            android:name="com.halkomills.moodmap.SelectMood.SelectMoodActivity"
             android:label="@string/title_activity_select_mood" >
+        </activity>
+        <activity
+            android:name="com.halkomills.moodmap.MoodLog.LogActivity"
+            android:label="@string/title_activity_log" >
         </activity>
     </application>
 
