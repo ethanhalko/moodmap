@@ -1,6 +1,7 @@
 package com.halkomills.moodmap.SelectMood;
 import com.example.halkomills.moodmap.R;
 import com.halkomills.moodmap.DashboardActivity;
+import com.halkomills.moodmap.Database.Mood;
 import com.halkomills.moodmap.Models.MoodDTO;
 import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
 
@@ -22,18 +23,15 @@ public class SelectMoodActivity extends Activity {
     List<MoodDTO> moodDTOs;
     ListView moodListView;
 
-    SelectMoodActivity wut;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_select_mood);
-        wut = this;
         db = new MoodmapSqliteHelper(this);
-        //db.deleteAll();
 
-        moodDTOs = db.getAll();
+        Mood mood = new Mood(db.getReadableDatabase());
+        moodDTOs = mood.getAll();
         List<String> sMoods = new ArrayList<String>();
         for(MoodDTO m : moodDTOs) { sMoods.add(m.getName()); }
 

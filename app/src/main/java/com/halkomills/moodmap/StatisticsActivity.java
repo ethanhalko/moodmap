@@ -1,5 +1,7 @@
 package com.halkomills.moodmap;
 import com.example.halkomills.moodmap.R;
+import com.halkomills.moodmap.MoodLog.LogActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +41,14 @@ public class StatisticsActivity extends Activity {
             finish();
 
         }
+
+        if(id == R.id.log_view) {
+            Intent intent = new Intent(getApplicationContext(),LogActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

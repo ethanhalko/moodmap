@@ -32,13 +32,12 @@ public class LogActivity extends Activity {
         List<RecordedMoodDTO> moodDTOs = recordedMood.getAll();
         logListView = (ListView) findViewById(R.id.logListView);
 
-
         List<String> sMoods = new ArrayList<String>();
         for (RecordedMoodDTO m : moodDTOs) {
-            sMoods.add(m.getId() + " : " + m.getTimestamp());
+            sMoods.add(m.toString());
         }
 
-        logListView = (ListView) findViewById(R.id.moodListView);
+        logListView = (ListView) findViewById(R.id.logListView);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sMoods);
         logListView.setAdapter(adapter);
     }

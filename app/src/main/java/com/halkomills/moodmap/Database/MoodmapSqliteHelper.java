@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -43,75 +44,31 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public long createMood(MoodDTO moodDTO) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", moodDTO.getName());
-
-        /*Date utilDate = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(utilDate);
-        cal.set(Calendar.MILLISECOND, 0);
-        values.put("created_at",utilDate.getTime());*/
-
-        long r = db.insert("moods", null, values);
-        db.close();
-
-        return r;
-    }
-
-    public int updateMood(MoodDTO moodDTO) {
-        return -1;
-    }
-
-    public int deleteMood(int id) {
-
-        return -1;
-    }
-
-    public MoodDTO getMood(int id) {
-
-        MoodDTO moodDTO = new MoodDTO("lol");
-
-        return moodDTO;
-    }
-
-    public List<MoodDTO> getAll() {
+    public boolean hasDefaultMoods() {
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
-        List<MoodDTO> moodDTOs = new ArrayList<MoodDTO>();
-        SQLiteDatabase db = this.getWritableDatabase();
+
         try {
-            //String query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC;";
-            cursor = db.rawQuery("SELECT * FROM moods", null);
-
-            if (cursor.moveToFirst()) {
-                while(!cursor.isAfterLast()) {
-
-                    int id = cursor.getInt(cursor.getColumnIndex("id"));
-                    String m = cursor.getString(cursor.getColumnIndex("name"));
-
-                    MoodDTO moodDTO = new MoodDTO();
-                    moodDTO.setId(id);
-                    moodDTO.setMood(m);
-
-
-                    cursor.moveToNext();
-                    moodDTOs.add(moodDTO);
-                }
+           cursor = db.rawQuery("SELECT COUNT(*) FROM moods", null);
+            if(cursor.moveToFirst()) {
+                return cursor.getInt(cursor.getColumnIndex("COUNT(*)")) > 0;
             }
-        } catch (Exception e) {
 
+        }catch(Exception e) {
             Log.d("error",e.getMessage());
         }
 
-        return moodDTOs;
+        return false;
+
     }
 
-    public boolean deleteAll() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM moods");
-        return true;
-    }
+    public void insertDefaultMoods() {
 
+        String[] moods = { "Mad","Sad","Glad" };
+        for(String s: moods) {
+            Mood mood = new Mood(this.getWritableDatabase());
+            MoodDTO moodDTO = new MoodDTO(s);
+            mood.create(moodDTO);
+        }
+    }
 }

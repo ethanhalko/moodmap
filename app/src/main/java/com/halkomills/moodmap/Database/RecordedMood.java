@@ -9,6 +9,7 @@ import android.util.Log;
 import com.halkomills.moodmap.Models.MoodDTO;
 import com.halkomills.moodmap.Models.RecordedMoodDTO;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -48,26 +49,40 @@ public class RecordedMood {
         return result;
     }
 
+    public RecordedMoodDTO getLatestMood() {
+
+        Cursor cursor;
+
+        try {
+            cursor = db.rawQuery("SELECT * FROM recorded_moods AS rm JOIN moods AS m ON rm.mood_id = m.id ORDER BY created_at DESC LIMIT 1", null);
+
+            if(cursor.moveToFirst()) {
+                return getMoodFromCursor(cursor);
+            }
+
+        } catch(Exception e) {
+            Log.d("ERROR",e.getMessage());
+        }
+
+        return null;
+    }
+
     public List<RecordedMoodDTO> getAll() {
 
         List<RecordedMoodDTO> recordedMoods = new ArrayList<RecordedMoodDTO>();
         Cursor cursor;
 
         try {
-            cursor = db.rawQuery("SELECT * FROM recorded_moods", null);
+
+            cursor = db.rawQuery("SELECT * FROM recorded_moods AS rm JOIN moods AS m ON rm.mood_id = m.id", null);
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
 
-                    int id = cursor.getInt(cursor.getColumnIndex("id"));
-                    int mood_id = cursor.getInt(cursor.getColumnIndex("mood_id"));
-
-                    RecordedMoodDTO moodDTO = new RecordedMoodDTO();
-                    moodDTO.setId(id);
-                    moodDTO.setMoodId(mood_id);
+                    String[] cols = cursor.getColumnNames();
+                    recordedMoods.add(getMoodFromCursor(cursor));
 
                     cursor.moveToNext();
-                    recordedMoods.add(moodDTO);
                 }
             }
 
@@ -76,5 +91,25 @@ public class RecordedMood {
         }
 
         return recordedMoods;
+    }
+
+    private RecordedMoodDTO getMoodFromCursor(Cursor cursor) {
+        //get database results
+        int id = cursor.getInt(cursor.getColumnIndex("id"));
+        int mood_id = cursor.getInt(cursor.getColumnIndex("mood_id"));
+        String mood = cursor.getString(cursor.getColumnIndex(("name")));
+
+        String rawStamp = cursor.getString(cursor.getColumnIndex("created_at"));
+        long stamp = Long.parseLong(rawStamp);
+        Date d = new Date(stamp);
+
+        //Setup recorded mood dto
+        RecordedMoodDTO moodDTO = new RecordedMoodDTO();
+        moodDTO.setId(id);
+        moodDTO.setMoodId(mood_id);
+        moodDTO.setTimestamp(d);
+        moodDTO.setMood(mood);
+
+        return moodDTO;
     }
 }

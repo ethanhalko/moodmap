@@ -6,7 +6,7 @@ package com.halkomills.moodmap.Database;
 public class MoodmapSchemaStrings {
 
     public static String[] createTables = {
-            "CREATE TABLE moods ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, default_mood INTEGER, created_at TIMESTAMP)",
+            "CREATE TABLE moods ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, default_mood INTEGER)",
             "CREATE TABLE recorded_moods (id INTEGER PRIMARY KEY AUTOINCREMENT, mood_id INTEGER, created_at TIMESTAMP)"
     };
 

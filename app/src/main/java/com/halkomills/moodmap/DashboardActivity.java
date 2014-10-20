@@ -3,33 +3,52 @@ package com.halkomills.moodmap;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.halkomills.moodmap.R;
+import com.halkomills.moodmap.Database.Mood;
 import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
+import com.halkomills.moodmap.Database.RecordedMood;
 import com.halkomills.moodmap.Models.MoodDTO;
+import com.halkomills.moodmap.Models.RecordedMoodDTO;
 import com.halkomills.moodmap.SelectMood.SelectMoodActivity;
 
 
 public class DashboardActivity extends Activity {
 
     MoodmapSqliteHelper db;
+    TextView latestMoodText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        //deleteDatabase("Moodmap");
-
+//        deleteDatabase("Moodmap");
         db = new MoodmapSqliteHelper(this);
-        db.deleteAll();
 
-        insertABunchOfDumbMoods();
+        if(!db.hasDefaultMoods()) {
+            Log.d("DATABASE", "No default moods detected. Inserting defaults.");
+            db.insertDefaultMoods();
+        }
+
+        latestMoodText = (TextView)findViewById(R.id.latestMoodText);
+        RecordedMood recordedMood = new RecordedMood(db.getReadableDatabase());
+        RecordedMoodDTO recordedMoodDTO = recordedMood.getLatestMood();
+
+        if(recordedMoodDTO == null) {
+            latestMoodText.setText("You haven't logged any moods yet.");
+        } else {
+            latestMoodText.setText(recordedMoodDTO.getLatestMoodString());
+
+        }
+
 
         Button statsButton = (Button)findViewById(R.id.statisticsButton);
         statsButton.setOnTouchListener(new View.OnTouchListener() {
@@ -53,15 +72,6 @@ public class DashboardActivity extends Activity {
             }
         });
 
-    }
-
-    private void insertABunchOfDumbMoods() {
-
-        String[] moods = { "Mad","Sad","Glad" };
-        for(String s: moods) {
-            MoodDTO moodDTO = new MoodDTO(s);
-            db.createMood(moodDTO);
-        }
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.halkomills.moodmap.SelectMood;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 
+import com.halkomills.moodmap.DashboardActivity;
 import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
 import com.halkomills.moodmap.Database.RecordedMood;
 import com.halkomills.moodmap.Models.MoodDTO;
@@ -38,5 +40,10 @@ public class ConfirmMoodPositiveClickListener implements DialogInterface.OnClick
         recordedMood.create(recordedMoodDTO);
 
         Log.d("ListenerLog","confirm mood dialog - recorded mood");
+
+        Intent intent = new Intent(activity.getApplicationContext(), DashboardActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+
     }
 }

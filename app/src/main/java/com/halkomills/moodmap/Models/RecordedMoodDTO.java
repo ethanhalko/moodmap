@@ -40,4 +40,9 @@ public class RecordedMoodDTO {
     public String toString() {
         return id + " , " + mood + ", " + timestamp.toString();
     }
+
+    public String getLatestMoodString() {
+
+        return toString();
+    }
 }
