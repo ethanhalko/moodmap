@@ -13,12 +13,25 @@ public class RecordedMoodDTO {
     private String mood;
     private Date timestamp;
 
-    public RecordedMoodDTO() {}
-
+    public RecordedMoodDTO(int moodId) {
+        this.moodId = moodId;
+        this.timestamp = new Date();
+    }
     public RecordedMoodDTO(int moodId, String mood, Date ts) {
         this.moodId = moodId;
         this.mood = mood;
         this.timestamp = ts;
+    }
+
+    public RecordedMoodDTO(int id, int moodId, Date d, String mood) {
+        this.id = id;
+        this.moodId = moodId;
+        this.timestamp = d;
+        this.mood = mood;
+    }
+
+    public RecordedMoodDTO() {
+
     }
 
     public int getId() { return id; }
@@ -42,7 +55,6 @@ public class RecordedMoodDTO {
     }
 
     public String getLatestMoodString() {
-
-        return toString();
+        return "Last mood: " + mood + " at " + getDisplayTimestamp();
     }
 }

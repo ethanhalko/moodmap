@@ -21,12 +21,16 @@
             android:label="@string/title_activity_statistics" >
         </activity>
         <activity
-            android:name="com.halkomills.moodmap.SelectMood.SelectMoodActivity"
-            android:label="@string/title_activity_select_mood" >
-        </activity>
-        <activity
             android:name="com.halkomills.moodmap.MoodLog.LogActivity"
             android:label="@string/title_activity_log" >
+        </activity>
+        <activity
+            android:name="com.halkomills.moodmap.CustomMoodActivity"
+            android:label="@string/title_activity_custom_mood"
+            android:parentActivityName="com.halkomills.moodmap.DashboardActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.halkomills.moodmap.DashboardActivity" />
         </activity>
     </application>
 

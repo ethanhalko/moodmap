@@ -29,7 +29,14 @@ public class RecordedMood {
         this.db = db;
     }
 
+
+    public long create(int id) {
+        RecordedMoodDTO recordedMoodDTO = new RecordedMoodDTO(id);
+        return create(recordedMoodDTO);
+    }
+
     public long create(RecordedMoodDTO recordedMoodDTO) {
+
         long result = -1;
         try {
             ContentValues values = new ContentValues();
@@ -104,12 +111,7 @@ public class RecordedMood {
         Date d = new Date(stamp);
 
         //Setup recorded mood dto
-        RecordedMoodDTO moodDTO = new RecordedMoodDTO();
-        moodDTO.setId(id);
-        moodDTO.setMoodId(mood_id);
-        moodDTO.setTimestamp(d);
-        moodDTO.setMood(mood);
-
-        return moodDTO;
+        return new RecordedMoodDTO(id,mood_id,d,mood);
     }
+
 }

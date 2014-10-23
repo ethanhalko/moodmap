@@ -18,32 +18,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Moods"
-            android:id="@+id/openMoodsButton"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Custom"
-            android:id="@+id/customMoodButton"
-            android:layout_alignTop="@+id/openMoodsButton"
-            android:layout_toEndOf="@+id/openMoodsButton" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Statistics"
-            android:id="@+id/statisticsButton"
-            android:layout_alignTop="@+id/customMoodButton"
-            android:layout_toEndOf="@+id/customMoodButton" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,6 +28,33 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectMoodSpinner"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_below="@+id/latestMoodText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="You are"
+            android:id="@+id/textView"
+            android:layout_alignTop="@+id/selectMoodSpinner"
+            android:layout_alignParentStart="true"
+            android:paddingTop="40px" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Statistics"
+            android:id="@+id/statisticsButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
 
 </RelativeLayout>
