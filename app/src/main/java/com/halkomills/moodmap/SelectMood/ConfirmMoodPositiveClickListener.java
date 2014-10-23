@@ -19,12 +19,12 @@ import java.util.Date;
 public class ConfirmMoodPositiveClickListener implements DialogInterface.OnClickListener {
 
     private RecordedMoodDTO moodDTO;
-    private Activity activity;
+    private DashboardActivity activity;
     private MoodmapSqliteHelper db;
 
     public ConfirmMoodPositiveClickListener(Activity activity,RecordedMoodDTO moodDTO) {
 
-        this.activity = activity;
+        this.activity = (DashboardActivity)activity;
         this.moodDTO = moodDTO;
     }
 
@@ -36,6 +36,7 @@ public class ConfirmMoodPositiveClickListener implements DialogInterface.OnClick
         RecordedMood recordedMood = new RecordedMood(db.getWritableDatabase());
         recordedMood.create(moodDTO);
 
+        activity.setLatestMoodText();
         Log.d("ListenerLog","confirm mood dialog - recorded mood");
 
 

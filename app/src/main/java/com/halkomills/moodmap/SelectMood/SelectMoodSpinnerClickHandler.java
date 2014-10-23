@@ -73,8 +73,6 @@ public class SelectMoodSpinnerClickHandler implements AdapterView.OnItemSelected
 
             Log.d("CLICKED","Recorded mood!");
         }
-
-
     }
 
     @Override
