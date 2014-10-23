@@ -45,8 +45,9 @@ public class DashboardActivity extends Activity {
         if(recordedMoodDTO == null) {
             latestMoodText.setText("You haven't logged any moods yet.");
         } else {
-            latestMoodText.setText(recordedMoodDTO.getLatestMoodString());
-
+            //latestMoodText.setText(recordedMoodDTO.getLatestMoodString());
+            latestMoodText.setText("You were last " + recordedMoodDTO.getMood() + " at "
+                                    + recordedMoodDTO.getDisplayTimestamp());
         }
 
 

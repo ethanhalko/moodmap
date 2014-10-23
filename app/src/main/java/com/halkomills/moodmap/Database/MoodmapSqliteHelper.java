@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.halkomills.moodmap.Models.MoodDTO;
+import com.halkomills.moodmap.Models.RecordedMoodDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +64,16 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
     }
 
     public void insertDefaultMoods() {
-
         String[] moods = { "Mad","Sad","Glad" };
         for(String s: moods) {
             Mood mood = new Mood(this.getWritableDatabase());
             MoodDTO moodDTO = new MoodDTO(s);
             mood.create(moodDTO);
         }
+    }
+
+    public List<RecordedMoodDTO> getMoods(){
+        RecordedMood recordedMood = new RecordedMood(this.getWritableDatabase());
+        return recordedMood.getAll();
     }
 }
