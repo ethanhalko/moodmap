@@ -8,5 +8,9 @@
     <string name="return_dashboard">Dashboard</string>
     <string name="title_activity_select_mood">Select Mood</string>
     <string name="title_activity_log">LogActivity</string>
+    <string name="title_activity_custom_mood">CustomMoodActivity</string>
+    <string name="enter_custom_mood">Enter Custom Mood</string>
+    <string name="set_mood_label">You are</string>
+
 
 </resources>

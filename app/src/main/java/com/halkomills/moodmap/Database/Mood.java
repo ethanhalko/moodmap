@@ -34,6 +34,17 @@ public class Mood {
     }
 
 
+    public List<String> getAllNames() {
+        List<MoodDTO> moodDTOs = getAll();
+        List<String> names = new ArrayList<String>();
+
+        for(MoodDTO mood : moodDTOs) {
+            names.add(mood.getName());
+        }
+
+        return names;
+    }
+
     public List<MoodDTO> getAll() {
 
         Cursor cursor;
@@ -62,5 +73,56 @@ public class Mood {
         }
 
         return moodDTOs;
+    }
+
+    public List<MoodDTO> getAllOrderedByFrequency() {
+        Cursor cursor;
+        ArrayList<MoodDTO> moods = new ArrayList<MoodDTO>();
+        try {
+            String query = "";
+            //way to order based on most frequently used?
+            RecordedMood recordedMood = new RecordedMood(db);
+            if(recordedMood.count() == 0)
+                query = "SELECT * FROM moods";
+            else
+                query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor.moveToFirst()) {
+
+                while(!cursor.isAfterLast()) {
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    String n = cursor.getString(cursor.getColumnIndex("name"));
+                    moods.add(new MoodDTO(id, n));
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.d("error", e.getMessage());
+        }
+
+        return moods;
+    }
+
+
+    public MoodDTO getByName(String name) {
+        Cursor cursor;
+        try {
+            //way to order based on most frequently used?
+            //String query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC;";
+            cursor = db.rawQuery("SELECT * FROM moods WHERE name = \"" + name + "\"", null);
+
+            if (cursor.moveToFirst()) {
+
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    String n = cursor.getString(cursor.getColumnIndex("name"));
+
+                    return new MoodDTO(id,n);
+            }
+        } catch (Exception e) {
+            Log.d("error", e.getMessage());
+        }
+
+        return null;
     }
 }

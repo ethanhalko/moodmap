@@ -48,19 +48,19 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
     public boolean hasDefaultMoods() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
+        boolean result = false;
 
         try {
            cursor = db.rawQuery("SELECT COUNT(*) FROM moods", null);
             if(cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndex("COUNT(*)")) > 0;
+                int val = cursor.getInt(cursor.getColumnIndex("COUNT(*)"));
+                result = val > 0;
             }
 
         }catch(Exception e) {
             Log.d("error",e.getMessage());
         }
-
-        return false;
-
+        return result;
     }
 
     public void insertDefaultMoods() {

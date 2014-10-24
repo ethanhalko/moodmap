@@ -18,34 +18,46 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Moods"
-            android:id="@+id/openMoodsButton"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/latestMoodText"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Custom"
-            android:id="@+id/customMoodButton"
-            android:layout_alignTop="@+id/openMoodsButton"
-            android:layout_toEndOf="@+id/openMoodsButton" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/set_mood_label"
+            android:id="@+id/textView"
+            android:paddingTop="40px"
+            android:layout_toStartOf="@+id/selectMoodSpinner"
+            android:layout_below="@+id/latestMoodText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="90dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectMoodSpinner"
+            android:layout_toEndOf="@+id/statisticsButton"
+            android:layout_alignTop="@+id/textView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Statistics"
             android:id="@+id/statisticsButton"
-            android:layout_alignTop="@+id/customMoodButton"
-            android:layout_toEndOf="@+id/customMoodButton" />
-
-     
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
 </RelativeLayout>
