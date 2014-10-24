@@ -38,17 +38,6 @@ public class DashboardActivity extends Activity {
             db.insertDefaultMoods();
         }
 
-        latestMoodText = (TextView)findViewById(R.id.latestMoodText);
-        RecordedMood recordedMood = new RecordedMood(db.getReadableDatabase());
-        RecordedMoodDTO recordedMoodDTO = recordedMood.getLatestMood();
-
-        if(recordedMoodDTO == null) {
-            latestMoodText.setText("You haven't logged any moods yet.");
-        } else {
-            //latestMoodText.setText(recordedMoodDTO.getLatestMoodString());
-            latestMoodText.setText("You were last " + recordedMoodDTO.getMood() + " at "
-                                    + recordedMoodDTO.getDisplayTimestamp());
-        }
 
 
         Button statsButton = (Button)findViewById(R.id.statisticsButton);

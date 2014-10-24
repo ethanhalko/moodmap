@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_stats"
+        android:text="@string/title_activity_statistics"
         android:id="@+id/latestMoodText"
         style="@style/HeaderText"
         android:gravity="center_horizontal" />
