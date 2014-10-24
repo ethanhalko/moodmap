@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 public class StatisticsActivity extends Activity {
@@ -42,8 +43,17 @@ public class StatisticsActivity extends Activity {
     private SQLiteDatabase db;
     final int[] colors = { Color.rgb(51, 181, 229),
                             Color.rgb(255, 68, 68),
-                            Color.rgb(170, 102, 204)};
+                            Color.rgb(170, 102, 204),
+                            Color.rgb(153, 204, 2),
+                            Color.rgb(255, 187, 51)};
+    int getRandomColor(){
+        Random r = new Random();
+        int red = r.nextInt(255 - 0);
+        int green = r.nextInt(255 - 0);
+        int blue = r.nextInt(255 - 0);
 
+        return Color.rgb(red, green, blue);
+    }
     //reduce
     private Map<String, Integer> reduce(List<RecordedMoodDTO> moods){
         Map<String, Integer> moodMap = new HashMap<String, Integer>();
@@ -65,10 +75,17 @@ public class StatisticsActivity extends Activity {
     private void generatePieChart(Map<String, Integer> moodMap ){
         List<Segment> segments = new ArrayList<Segment>();
         int i = 0;
+        SegmentFormatter seg;
         //make pie segments
         for( HashMap.Entry<String, Integer> m : moodMap.entrySet() ){
-            pie.addSeries(new Segment(m.getKey(), m.getValue()), new SegmentFormatter(colors[i]));
-            ++i;
+            if( i < colors.length ){
+                seg = new SegmentFormatter(colors[i]);
+                ++i;
+            }else{
+                seg = new SegmentFormatter(getRandomColor());
+
+            }
+            pie.addSeries(new Segment(m.getKey(), m.getValue()), seg);
         }
         pie.setBackgroundPaint(null);
         pie.setBorderPaint(null);
