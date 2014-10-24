@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.halkomills.moodmap.R;
 import com.halkomills.moodmap.CustomMoodActivity;
 import com.halkomills.moodmap.DashboardActivity;
 import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
@@ -48,13 +51,13 @@ public class SelectMoodSpinnerClickHandler implements AdapterView.OnItemSelected
         if(mood == DashboardActivity.CUSTOM_VALUE) {
             Log.d("CLICKED","GOT CUSTOM!");
 
-                 Intent intent = new Intent(activity.getApplicationContext(),CustomMoodActivity.class);
-                 ArrayList<String> sMoods = new ArrayList<String>();
-                 for(MoodDTO moodDTO:moodDTOs) sMoods.add(moodDTO.getName());
-                 intent.putStringArrayListExtra("moods", sMoods);
-                 activity.startActivity(intent);
-                 activity.finish();
-            } else {
+            Intent intent = new Intent(activity.getApplicationContext(),CustomMoodActivity.class);
+            ArrayList<String> sMoods = new ArrayList<String>();
+            for(MoodDTO moodDTO:moodDTOs) sMoods.add(moodDTO.getName());
+            intent.putStringArrayListExtra("moods", sMoods);
+            activity.startActivity(intent);
+            activity.finish();
+        } else {
 
             MoodDTO moodDTO = moodDTOs.get(position);
             MoodmapSqliteHelper db = new MoodmapSqliteHelper(activity);
@@ -77,6 +80,7 @@ public class SelectMoodSpinnerClickHandler implements AdapterView.OnItemSelected
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+        Log.d("NOCLICK?","Nothing selected");
 
     }
 

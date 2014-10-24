@@ -29,23 +29,27 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectMoodSpinner"
-            android:layout_marginTop="50dp"
-            android:layout_toEndOf="@+id/textView"
-            android:layout_below="@+id/latestMoodText" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="You are"
+            android:text="@string/set_mood_label"
             android:id="@+id/textView"
-            android:layout_alignTop="@+id/selectMoodSpinner"
+            android:paddingTop="40px"
+            android:layout_toStartOf="@+id/selectMoodSpinner"
+            android:layout_below="@+id/latestMoodText"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:paddingTop="40px" />
+            android:layout_marginTop="90dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectMoodSpinner"
+            android:layout_toEndOf="@+id/statisticsButton"
+            android:layout_alignTop="@+id/textView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <Button
             android:layout_width="wrap_content"

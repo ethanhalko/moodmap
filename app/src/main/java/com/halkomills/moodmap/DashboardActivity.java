@@ -51,7 +51,7 @@ public class DashboardActivity extends Activity {
         setLatestMoodText();
 
         Mood mood = new Mood(db.getReadableDatabase());
-        moods = mood.getAll();
+        moods = mood.getAllOrderedByFrequency();
         sMoods = new ArrayList<String>();
 
         for(MoodDTO moodDTO : moods) {
