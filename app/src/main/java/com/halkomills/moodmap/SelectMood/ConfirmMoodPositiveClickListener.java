@@ -18,32 +18,27 @@ import java.util.Date;
  */
 public class ConfirmMoodPositiveClickListener implements DialogInterface.OnClickListener {
 
-    private MoodDTO moodDTO;
-    private Date timestamp;
-    private Activity activity;
+    private RecordedMoodDTO moodDTO;
+    private DashboardActivity activity;
     private MoodmapSqliteHelper db;
 
-    public ConfirmMoodPositiveClickListener(Activity activity,MoodDTO moodDTO,Date timestamp) {
+    public ConfirmMoodPositiveClickListener(Activity activity,RecordedMoodDTO moodDTO) {
 
-        this.activity = activity;
+        this.activity = (DashboardActivity)activity;
         this.moodDTO = moodDTO;
-        this.timestamp = timestamp;
     }
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
         Log.d("ListenerLog", "confirm mood dialog - positive");
-        RecordedMoodDTO recordedMoodDTO = new RecordedMoodDTO(moodDTO.getId(), moodDTO.getName(),timestamp);
         db = new MoodmapSqliteHelper(activity);
 
         RecordedMood recordedMood = new RecordedMood(db.getWritableDatabase());
-        recordedMood.create(recordedMoodDTO);
+        recordedMood.create(moodDTO);
 
+        activity.setLatestMoodText();
         Log.d("ListenerLog","confirm mood dialog - recorded mood");
 
-        Intent intent = new Intent(activity.getApplicationContext(), DashboardActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
 
     }
 }

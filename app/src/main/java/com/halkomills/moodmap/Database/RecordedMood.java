@@ -29,7 +29,14 @@ public class RecordedMood {
         this.db = db;
     }
 
+
+    public long create(int id) {
+        RecordedMoodDTO recordedMoodDTO = new RecordedMoodDTO(id);
+        return create(recordedMoodDTO);
+    }
+
     public long create(RecordedMoodDTO recordedMoodDTO) {
+
         long result = -1;
         try {
             ContentValues values = new ContentValues();
@@ -67,14 +74,32 @@ public class RecordedMood {
         return null;
     }
 
-    public List<RecordedMoodDTO> getAll() {
+
+    public int count() {
+        Cursor cursor;
+        int result = -1;
+
+        try {
+           cursor = db.rawQuery("SELECT COUNT(*) FROM recorded_moods", null);
+            if(cursor.moveToFirst()) {
+                result = cursor.getInt(cursor.getColumnIndex("COUNT(*)"));
+            }
+
+        }catch(Exception e) {
+            Log.d("error",e.getMessage());
+        }
+
+        return result;
+    }
+
+     public List<RecordedMoodDTO> getAll() {
 
         List<RecordedMoodDTO> recordedMoods = new ArrayList<RecordedMoodDTO>();
         Cursor cursor;
 
         try {
 
-            cursor = db.rawQuery("SELECT * FROM recorded_moods AS rm JOIN moods AS m ON rm.mood_id = m.id", null);
+            cursor = db.rawQuery("SELECT * FROM recorded_moods AS rm JOIN moods AS m ON rm.mood_id = m.id ORDER BY rm.created_at DESC", null);
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
@@ -104,12 +129,7 @@ public class RecordedMood {
         Date d = new Date(stamp);
 
         //Setup recorded mood dto
-        RecordedMoodDTO moodDTO = new RecordedMoodDTO();
-        moodDTO.setId(id);
-        moodDTO.setMoodId(mood_id);
-        moodDTO.setTimestamp(d);
-        moodDTO.setMood(mood);
-
-        return moodDTO;
+        return new RecordedMoodDTO(id,mood_id,d,mood);
     }
+
 }

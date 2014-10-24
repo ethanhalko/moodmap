@@ -25,23 +25,8 @@ public class SelectMoodListViewItemClickListener implements AdapterView.OnItemCl
         //get selected mood
         MoodDTO moodDTO = moodDTOs.get(position);
 
-        Date date = new Date();
-        AlertDialog.Builder confirmDialog = createConfirmDialog(moodDTO,date);
-        confirmDialog.show();
+
     }
 
-    public AlertDialog.Builder createConfirmDialog(MoodDTO moodDTO,Date date) {
-        String prompt = "You are " + moodDTO.getName() + " at " + date.toString();
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity)
-                .setTitle("Log Mood")
-                .setMessage(prompt)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, null)
-                .setPositiveButton(android.R.string.yes,new ConfirmMoodPositiveClickListener(activity, moodDTO,date))
-                .setNegativeButton(android.R.string.no, new ConfirmMoodNegativeClickListener(moodDTO));
-
-        return alertDialog;
-    }
 
 }
