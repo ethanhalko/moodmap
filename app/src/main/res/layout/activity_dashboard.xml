@@ -14,50 +14,73 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="29dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/latestMoodText"
-            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="false"
             android:layout_alignParentStart="true"
+            style="@style/MediumText"
             android:layout_alignParentEnd="true" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/set_mood_label"
             android:id="@+id/textView"
-            android:paddingTop="40px"
             android:layout_toStartOf="@+id/selectMoodSpinner"
+            style="@style/MediumText"
             android:layout_below="@+id/latestMoodText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="90dp" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectMoodSpinner"
-            android:layout_toEndOf="@+id/statisticsButton"
-            android:layout_alignTop="@+id/textView"
+            android:layout_marginTop="23dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <Spinner
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/selectMoodSpinner"
+            android:layout_toEndOf="@+id/statisticsButton"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-light"
+            android:layout_above="@+id/statisticsButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="21dp"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:layout_width="105dp"
+            android:layout_height="35dp"
             android:text="Statistics"
             android:id="@+id/statisticsButton"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:typeface="sans"
+            android:background="@drawable/buttonshape"
+            android:fontFamily="sans-serif-light" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/logo"
+            android:layout_above="@+id/latestMoodText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20dp" />
+
     </RelativeLayout>
 
 </RelativeLayout>

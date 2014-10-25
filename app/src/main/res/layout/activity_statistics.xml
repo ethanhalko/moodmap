@@ -22,8 +22,8 @@
     <com.androidplot.pie.PieChart
         android:id="@+id/moodStatsPie"
         android:layout_width="fill_parent"
-        android:layout_height="304dp"
-        androidPlot.pieWidget.marginTop="50dp"
+        android:layout_height="335dp"
+        androidPlot.pieWidget.marginTop="10dp"
         androidPlot.pieWidget.marginLeft="15dp"
         androidPlot.pieWidget.marginBottom="15dp"
         androidPlot.pieWidget.marginRight="10dp"/>
@@ -32,7 +32,8 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:background="#4F9FFFC0">
 
         <LinearLayout
             android:orientation="vertical"

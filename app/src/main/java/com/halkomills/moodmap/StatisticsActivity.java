@@ -79,10 +79,11 @@ public class StatisticsActivity extends Activity {
         //make pie segments
         for( HashMap.Entry<String, Integer> m : moodMap.entrySet() ){
             if( i < colors.length ){
-                seg = new SegmentFormatter(colors[i]);
+                seg = new SegmentFormatter(colors[i], colors[i]);
                 ++i;
             }else{
-                seg = new SegmentFormatter(getRandomColor());
+                int col = getRandomColor();
+                seg = new SegmentFormatter(col, col);
 
             }
             pie.addSeries(new Segment(m.getKey(), m.getValue()), seg);
@@ -90,7 +91,7 @@ public class StatisticsActivity extends Activity {
         pie.setBackgroundPaint(null);
         pie.setBorderPaint(null);
         PieRenderer renderer = pie.getRenderer(PieRenderer.class);
-        renderer.setDonutSize((float) 0 / 100, PieRenderer.DonutMode.PERCENT);
+        //renderer.setDonutSize((float) 0 / 100, PieRenderer.DonutMode.PERCENT);
     }
     private void listMoods( Map<String, Integer> moodMap){
         int total = 0;
