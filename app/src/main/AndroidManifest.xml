@@ -18,10 +18,12 @@
         </activity>
         <activity
             android:name="com.halkomills.moodmap.StatisticsActivity"
+            android:parentActivityName="com.halkomills.moodmap.DashboardActivity"
             android:label="@string/title_activity_statistics" >
         </activity>
         <activity
             android:name="com.halkomills.moodmap.MoodLog.LogActivity"
+            android:parentActivityName="com.halkomills.moodmap.DashboardActivity"
             android:label="@string/title_activity_log" >
         </activity>
         <activity

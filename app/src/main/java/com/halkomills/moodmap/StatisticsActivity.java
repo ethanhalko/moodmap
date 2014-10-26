@@ -154,14 +154,12 @@ public class StatisticsActivity extends Activity {
         if(id == R.id.return_dashboard) {
             Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
             startActivity(intent);
-            finish();
 
         }
 
         if(id == R.id.log_view) {
             Intent intent = new Intent(getApplicationContext(),LogActivity.class);
             startActivity(intent);
-            finish();
 
         }
 

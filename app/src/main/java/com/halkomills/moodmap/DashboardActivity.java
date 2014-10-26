@@ -71,7 +71,6 @@ public class DashboardActivity extends Activity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                  Intent intent = new Intent(getApplicationContext(),StatisticsActivity.class);
                  startActivity(intent);
-                 finish();
                  return true;
             }
         });
@@ -112,8 +111,8 @@ public class DashboardActivity extends Activity {
 
         if(id == R.id.log_view) {
             Intent intent = new Intent(getApplicationContext(),LogActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish();
             return true;
         }
 
