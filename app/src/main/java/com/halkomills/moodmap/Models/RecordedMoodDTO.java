@@ -58,7 +58,7 @@ public class RecordedMoodDTO {
         } else if(seconds > 0 ) {
             result = seconds + " " + pluralize("second",seconds) + " ago";
         } else {
-            result = "A few moments ago";
+            result = "a few moments ago";
         }
 
         return result;
@@ -83,7 +83,8 @@ public class RecordedMoodDTO {
     public String toString() {
         return id + " , " + mood + ", " + timestamp.toString();
     }
+    String s = mood;
     public String getLatestMoodString() {
-        return "Last mood: " + mood + " " + fromNow();
+        return "You were " + mood.toLowerCase() + " " + fromNow();
     }
 }
