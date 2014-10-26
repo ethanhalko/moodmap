@@ -9,4 +9,6 @@
         android:title="@string/return_dashboard"/>
     <item android:id="@+id/log_view"
         android:title="Log" />
+    <item android:id="@+id/about_view"
+        android:title="About" />
 </menu>

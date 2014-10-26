@@ -157,11 +157,13 @@ public class StatisticsActivity extends Activity {
             startActivity(intent);
 
         }
-
         if(id == R.id.log_view) {
             Intent intent = new Intent(getApplicationContext(),LogActivity.class);
             startActivity(intent);
-
+        }
+        if(id == R.id.about_view) {
+            Intent intent = new Intent(getApplicationContext(),AboutActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

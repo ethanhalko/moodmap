@@ -115,7 +115,10 @@ public class DashboardActivity extends Activity {
             startActivity(intent);
             return true;
         }
-
+        if(id == R.id.about_view) {
+            Intent intent = new Intent(getApplicationContext(),AboutActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

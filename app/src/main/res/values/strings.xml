@@ -11,6 +11,7 @@
     <string name="title_activity_custom_mood">CustomMoodActivity</string>
     <string name="enter_custom_mood">Enter Custom Mood</string>
     <string name="set_mood_label">How Do You Feel?...</string>
-
+    <string name="title_activity_about">By Dan Mills and Ethan Halko</string>
+    <string name="year">2014</string>
 
 </resources>
