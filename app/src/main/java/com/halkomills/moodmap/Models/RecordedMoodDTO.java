@@ -10,15 +10,11 @@ public class RecordedMoodDTO {
     private String mood;
     private Date timestamp;
 
+    public RecordedMoodDTO() {}
+
     public RecordedMoodDTO(int moodId) {
         this.moodId = moodId;
         this.timestamp = new Date();
-    }
-
-    public RecordedMoodDTO(int moodId, String mood, Date ts) {
-        this.moodId = moodId;
-        this.mood = mood;
-        this.timestamp = ts;
     }
 
     public RecordedMoodDTO(int id, int moodId, Date d, String mood) {
@@ -27,8 +23,6 @@ public class RecordedMoodDTO {
         this.timestamp = d;
         this.mood = mood;
     }
-
-    public RecordedMoodDTO() {}
 
     public int getId() { return id; }
     public String getMood() { return mood; }
@@ -72,6 +66,7 @@ public class RecordedMoodDTO {
         SimpleDateFormat f = new SimpleDateFormat("MM/dd/yy hh:mm:ss a");
         return f.format(timestamp);
     }
+
     public void setId(int id) { this.id = id;}
     public void setMood(String mood) { this.mood = mood; }
     public void setTimestamp(Date ts) { timestamp = ts; }
@@ -83,7 +78,7 @@ public class RecordedMoodDTO {
     public String toString() {
         return id + " , " + mood + ", " + timestamp.toString();
     }
-    String s = mood;
+
     public String getLatestMoodString() {
         return "You were " + mood.toLowerCase() + " " + fromNow();
     }

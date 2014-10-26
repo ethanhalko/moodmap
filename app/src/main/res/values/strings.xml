@@ -7,11 +7,33 @@
     <string name="title_activity_statistics">Your Statistics</string>
     <string name="return_dashboard">Dashboard</string>
     <string name="title_activity_select_mood">Select Mood</string>
-    <string name="title_activity_log">LogActivity</string>
-    <string name="title_activity_custom_mood">CustomMoodActivity</string>
+    <string name="title_activity_log">Recorded Moods Log</string>
+    <string name="title_activity_custom_mood">Log Custom Mood</string>
     <string name="enter_custom_mood">Enter Custom Mood</string>
     <string name="set_mood_label">How Do You Feel?...</string>
-    <string name="title_activity_about">By Dan Mills and Ethan Halko</string>
+    <string name="title_activity_about">By Daniel Mills and Ethan Halko</string>
     <string name="year">2014</string>
+
+    <string-array name="default_moods">
+        <item>Angry</item>
+        <item>Anxious</item>
+        <item>Calm</item>
+        <item>Confused</item>
+        <item>Crazy</item>
+        <item>Disappointed</item>
+        <item>Excited</item>
+        <item>Frustrated</item>
+        <item>Grumpy</item>
+        <item>Happy</item>
+        <item>High</item>
+        <item>Hopeful</item>
+        <item>Lazy</item>
+        <item>Mad</item>
+        <item>Moody</item>
+        <item>Sad</item>
+        <item>Satisfied</item>
+        <item>Stressed</item>
+        <item>Weird</item>
+    </string-array>
 
 </resources>

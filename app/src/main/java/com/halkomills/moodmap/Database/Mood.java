@@ -11,17 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mills on 2014-10-15.
+ *  Contains functions for accessing the mood table
+ *  in the sqlite database
  */
 public class Mood {
 
     private SQLiteDatabase db;
 
     public Mood(SQLiteDatabase db) {
-
         this.db = db;
     }
 
+    /**
+     * Inserts a new mood
+     * @param moodDTO
+     * @return the generated id
+     */
     public long create(MoodDTO moodDTO) {
 
         ContentValues values = new ContentValues();
@@ -33,54 +38,18 @@ public class Mood {
         return r;
     }
 
-
-    public List<String> getAllNames() {
-        List<MoodDTO> moodDTOs = getAll();
-        List<String> names = new ArrayList<String>();
-
-        for(MoodDTO mood : moodDTOs) {
-            names.add(mood.getName());
-        }
-
-        return names;
-    }
-
-    public List<MoodDTO> getAll() {
-
-        Cursor cursor;
-        List<MoodDTO> moodDTOs = new ArrayList<MoodDTO>();
-        try {
-            //way to order based on most frequently used?
-            //String query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC;";
-            cursor = db.rawQuery("SELECT * FROM moods", null);
-
-            if (cursor.moveToFirst()) {
-                while(!cursor.isAfterLast()) {
-
-                    int id = cursor.getInt(cursor.getColumnIndex("id"));
-                    String m = cursor.getString(cursor.getColumnIndex("name"));
-
-                    MoodDTO moodDTO = new MoodDTO();
-                    moodDTO.setId(id);
-                    moodDTO.setName(m);
-
-                    cursor.moveToNext();
-                    moodDTOs.add(moodDTO);
-                }
-            }
-        } catch (Exception e) {
-            Log.d("error", e.getMessage());
-        }
-
-        return moodDTOs;
-    }
-
+    /**
+     * Gets all moods, ordered by popularity
+     * @return All moods
+     */
     public List<MoodDTO> getAllOrderedByFrequency() {
+
         Cursor cursor;
         ArrayList<MoodDTO> moods = new ArrayList<MoodDTO>();
         try {
             String query = "";
-            //way to order based on most frequently used?
+
+            //check to see if any moods have been recorded yet, set query depending on results
             RecordedMood recordedMood = new RecordedMood(db);
             if(recordedMood.count() == 0)
                 query = "SELECT * FROM moods";
@@ -91,6 +60,8 @@ public class Mood {
             if (cursor.moveToFirst()) {
 
                 while(!cursor.isAfterLast()) {
+
+                    //convert row to DTO
                     int id = cursor.getInt(cursor.getColumnIndex("id"));
                     String n = cursor.getString(cursor.getColumnIndex("name"));
                     moods.add(new MoodDTO(id, n));
@@ -105,11 +76,14 @@ public class Mood {
     }
 
 
+    /**
+     * Finds a single mood by name
+     * @param name of mood
+     * @return MoodDTO or null if not found
+     */
     public MoodDTO getByName(String name) {
         Cursor cursor;
         try {
-            //way to order based on most frequently used?
-            //String query = "SELECT m.id, m.name FROM moods AS m JOIN recorded_moods AS rm ON m.id = rm.id GROUP BY m.id ORDER BY count(rm.id) DESC;";
             cursor = db.rawQuery("SELECT * FROM moods WHERE name = \"" + name + "\"", null);
 
             if (cursor.moveToFirst()) {

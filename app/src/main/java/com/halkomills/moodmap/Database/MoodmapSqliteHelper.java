@@ -1,22 +1,16 @@
 package com.halkomills.moodmap.Database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.halkomills.moodmap.Models.MoodDTO;
-import com.halkomills.moodmap.Models.RecordedMoodDTO;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by mills on 2014-09-24.
- */
+* Helper class for maintaining the database
+*/
 public class MoodmapSqliteHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -28,6 +22,7 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //create all tables
         String[] createTables = MoodmapSchemaStrings.createTables;
         for(String table : createTables) {
             db.execSQL(table);
@@ -37,6 +32,7 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
 
+        //drop all tables then recreate database
         String[] dropTables = MoodmapSchemaStrings.dropTables;
         for(String table : dropTables) {
             db.execSQL(table);
@@ -45,6 +41,11 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
+    /**
+     * Check to see if the default moods have been inserted into the
+     * database
+     * @return true if count > 0, false otherwise
+     */
     public boolean hasDefaultMoods() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
@@ -63,8 +64,11 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void insertDefaultMoods() {
-        String[] moods = { "Mad","Sad","Glad" };
+    /**
+     * Inserts a list of moods into the database
+     * @param moods
+     */
+    public void insertDefaultMoods(String[] moods) {
         for(String s: moods) {
             Mood mood = new Mood(this.getWritableDatabase());
             MoodDTO moodDTO = new MoodDTO(s);
@@ -72,8 +76,4 @@ public class MoodmapSqliteHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<RecordedMoodDTO> getMoods(){
-        RecordedMood recordedMood = new RecordedMood(this.getWritableDatabase());
-        return recordedMood.getAll();
-    }
 }

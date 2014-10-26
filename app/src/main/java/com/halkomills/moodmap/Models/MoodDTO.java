@@ -1,12 +1,10 @@
 package com.halkomills.moodmap.Models;
 
-
 public class MoodDTO {
 
     private int id;
     private String name;
 
-    public MoodDTO() {}
     public MoodDTO(int id, String name) { this.id = id; this.name = name; }
     public MoodDTO(String name) {
         this.name = name;

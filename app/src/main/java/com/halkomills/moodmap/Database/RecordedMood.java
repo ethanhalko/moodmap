@@ -18,8 +18,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+
 /**
- * Created by mills on 2014-10-15.
+ *  Contains functions for accessing the mood table
+ *  in the sqlite database
  */
 public class RecordedMood {
 
@@ -29,12 +31,21 @@ public class RecordedMood {
         this.db = db;
     }
 
-
-    public long create(int id) {
-        RecordedMoodDTO recordedMoodDTO = new RecordedMoodDTO(id);
+    /**
+     * Inserts a RecordedMood
+     * @param moodId
+     * @return the generated id
+     */
+    public long create(int moodId) {
+        RecordedMoodDTO recordedMoodDTO = new RecordedMoodDTO(moodId);
         return create(recordedMoodDTO);
     }
 
+    /**
+     * Inserts a RecordedMood
+     * @param recordedMoodDTO
+     * @return the generated id
+     */
     public long create(RecordedMoodDTO recordedMoodDTO) {
 
         long result = -1;
@@ -43,9 +54,6 @@ public class RecordedMood {
             values.put("mood_id", recordedMoodDTO.getMoodId());
 
             Date utilDate = new Date();
-/*      Calendar cal = Calendar.getInstance();
-        cal.setTime(utilDate);
-        cal.set(Calendar.MILLISECOND, 0);*/
             values.put("created_at", utilDate.getTime());
 
             result = db.insert("recorded_moods", null, values);
@@ -56,6 +64,10 @@ public class RecordedMood {
         return result;
     }
 
+    /**
+     * Gets the last mood recorded
+     * @return RecordedMoodDTO
+     */
     public RecordedMoodDTO getLatestMood() {
 
         Cursor cursor;
@@ -75,6 +87,10 @@ public class RecordedMood {
     }
 
 
+    /**
+     * Returns the number of recorded moods
+     * @return int
+     */
     public int count() {
         Cursor cursor;
         int result = -1;
@@ -92,6 +108,10 @@ public class RecordedMood {
         return result;
     }
 
+    /**
+     * Gets all recorded moods
+     * @return List<RecordedMoodDTO>
+     */
      public List<RecordedMoodDTO> getAll() {
 
         List<RecordedMoodDTO> recordedMoods = new ArrayList<RecordedMoodDTO>();
@@ -103,10 +123,7 @@ public class RecordedMood {
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
-
-                    String[] cols = cursor.getColumnNames();
                     recordedMoods.add(getMoodFromCursor(cursor));
-
                     cursor.moveToNext();
                 }
             }
@@ -118,6 +135,11 @@ public class RecordedMood {
         return recordedMoods;
     }
 
+    /**
+     * Converts a database row into a RecordedMoodDTO
+     * @param cursor
+     * @return RecordedMoodDTO
+     */
     private RecordedMoodDTO getMoodFromCursor(Cursor cursor) {
         //get database results
         int id = cursor.getInt(cursor.getColumnIndex("id"));
@@ -131,5 +153,4 @@ public class RecordedMood {
         //Setup recorded mood dto
         return new RecordedMoodDTO(id,mood_id,d,mood);
     }
-
 }

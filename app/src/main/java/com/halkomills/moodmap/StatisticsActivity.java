@@ -3,31 +3,24 @@ import com.androidplot.pie.PieChart;
 import com.androidplot.pie.PieRenderer;
 import com.androidplot.pie.Segment;
 import com.androidplot.pie.SegmentFormatter;
-import com.androidplot.ui.SizeLayoutType;
-import com.androidplot.ui.SizeMetrics;
 import com.example.halkomills.moodmap.R;
-import com.halkomills.moodmap.Database.Mood;
 import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
+import com.halkomills.moodmap.Database.RecordedMood;
 import com.halkomills.moodmap.Models.RecordedMoodDTO;
-import com.halkomills.moodmap.MoodLog.LogActivity;
-import com.halkomills.moodmap.Models.MoodDTO;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.EmbossMaskFilter;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -35,12 +28,10 @@ import java.util.Random;
 
 public class StatisticsActivity extends Activity {
 
-
     private PieChart pie;
     private TextView tv;
     private LinearLayout rel;
 
-    private SQLiteDatabase db;
     final int[] colors = { Color.rgb(51, 181, 229),
                             Color.rgb(255, 68, 68),
                             Color.rgb(170, 102, 204),
@@ -116,8 +107,9 @@ public class StatisticsActivity extends Activity {
         pie = (PieChart) findViewById(R.id.moodStatsPie);
         rel = (LinearLayout)findViewById(R.id.percents);
         //get all yr moods
-        MoodmapSqliteHelper sql = new MoodmapSqliteHelper(this);
-        List<RecordedMoodDTO> moods = sql.getMoods();
+//        MoodmapSqliteHelper sql = new MoodmapSqliteHelper(this);
+        RecordedMood recordedMood = new RecordedMood(new MoodmapSqliteHelper(this).getReadableDatabase());
+        List<RecordedMoodDTO> moods = recordedMood.getAll();
         Map<String, Integer> moodMap = reduce(moods);
 
         if( !moods.isEmpty() ){

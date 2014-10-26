@@ -1,4 +1,4 @@
-package com.halkomills.moodmap.MoodLog;
+package com.halkomills.moodmap;
 
 import android.app.Activity;
 import android.os.Bundle;

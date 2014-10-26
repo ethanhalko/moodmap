@@ -22,7 +22,7 @@
             android:parentActivityName="com.halkomills.moodmap.DashboardActivity" >
         </activity>
         <activity
-            android:name="com.halkomills.moodmap.MoodLog.LogActivity"
+            android:name="com.halkomills.moodmap.LogActivity"
             android:label="@string/title_activity_log"
             android:parentActivityName="com.halkomills.moodmap.DashboardActivity" >
         </activity>

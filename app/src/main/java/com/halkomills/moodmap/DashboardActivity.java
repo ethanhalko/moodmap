@@ -19,7 +19,6 @@ import com.halkomills.moodmap.Database.MoodmapSqliteHelper;
 import com.halkomills.moodmap.Database.RecordedMood;
 import com.halkomills.moodmap.Models.MoodDTO;
 import com.halkomills.moodmap.Models.RecordedMoodDTO;
-import com.halkomills.moodmap.MoodLog.LogActivity;
 import com.halkomills.moodmap.SelectMood.SelectMoodSpinnerClickHandler;
 
 import java.util.ArrayList;
@@ -40,16 +39,17 @@ public class DashboardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-//        deleteDatabase("Moodmap");
         db = new MoodmapSqliteHelper(this);
 
+        //if the database has no moods, insert the default ones
         if(!db.hasDefaultMoods()) {
             Log.d("DATABASE", "No default moods detected. Inserting defaults.");
-            db.insertDefaultMoods();
+            db.insertDefaultMoods(getResources().getStringArray(R.array.default_moods));
         }
 
         setLatestMoodText();
 
+        //get data for spinner
         Mood mood = new Mood(db.getReadableDatabase());
         moods = mood.getAllOrderedByFrequency();
         sMoods = new ArrayList<String>();
@@ -58,6 +58,7 @@ public class DashboardActivity extends Activity {
             sMoods.add(moodDTO.getName());
         }
 
+        //add custom option
         sMoods.add(CUSTOM_VALUE);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sMoods);
@@ -65,6 +66,7 @@ public class DashboardActivity extends Activity {
         selectMoodSpinner.setAdapter(adapter);
         selectMoodSpinner.setOnItemSelectedListener(new SelectMoodSpinnerClickHandler(this,moods));
 
+        //bind statsButton event handler
         Button statsButton = (Button)findViewById(R.id.statisticsButton);
         statsButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -78,6 +80,10 @@ public class DashboardActivity extends Activity {
 
     }
 
+    /**
+     *  Gets the latest recorded mood
+     *  and sets it's content to a label on the dashboard
+     */
     public void setLatestMoodText() {
 
         latestMoodText = (TextView)findViewById(R.id.latestMoodText);
@@ -101,9 +107,7 @@ public class DashboardActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -118,6 +122,7 @@ public class DashboardActivity extends Activity {
         if(id == R.id.about_view) {
             Intent intent = new Intent(getApplicationContext(),AboutActivity.class);
             startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
